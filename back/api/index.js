@@ -53,7 +53,7 @@ app.options('*', cors()); */
 // Permitir solicitudes desde tu frontend en Vercel
 app.use(
   cors({
-    origin: "https://chesskingdom.vercel.app",
+    origin: "*",
     methods: "GET,POST,PUT,DELETE",
     allowedHeaders: "Content-Type,Authorization",
     credentials: true,
