@@ -31,7 +31,7 @@ app.use(
     })
 )
 
-const allowedOrigins = [
+/* const allowedOrigins = [
     'https://chesskingdom.vercel.app',
     'http://localhost:5173',
     'http://localhost:3001'
@@ -48,7 +48,17 @@ app.use(cors({
     credentials: true
 }));
 
-app.options('*', cors());
+app.options('*', cors()); */
+
+// Permitir solicitudes desde tu frontend en Vercel
+app.use(
+  cors({
+    origin: "https://chesskingdom.vercel.app",
+    methods: "GET,POST,PUT,DELETE",
+    allowedHeaders: "Content-Type,Authorization",
+    credentials: true,
+  })
+);
 
 //Conexión a la base de datos
 connectDB();
