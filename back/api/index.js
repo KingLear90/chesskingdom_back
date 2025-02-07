@@ -13,16 +13,26 @@ const app = express()
 
 app.use(express.json())
 
+const allowedOrigins = [
+    "https://chesskingdom.vercel.app",
+    "http://localhost:5173"
+];
+
 app.use(cors({
-    origin: ["https://chesskingdom.vercel.app", "http://localhost:5173"],
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
     methods: "GET,POST,PUT,DELETE",
     allowedHeaders: "Content-Type,Authorization",
     credentials: true
 }));
 
-// Middleware para verificar CORS en cada respuesta
 app.use((req, res, next) => {
-    console.log("CORS headers set for:", req.headers.origin);
+    console.log("Request origin:", req.headers.origin);
     next();
 });
 
