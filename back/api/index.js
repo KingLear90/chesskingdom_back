@@ -13,6 +13,19 @@ const app = express()
 
 app.use(express.json())
 
+app.use(cors({
+    origin: ["https://chesskingdom.vercel.app", "http://localhost:5173"],
+    methods: "GET,POST,PUT,DELETE",
+    allowedHeaders: "Content-Type,Authorization",
+    credentials: true
+}));
+
+// Middleware para verificar CORS en cada respuesta
+app.use((req, res, next) => {
+    console.log("CORS headers set for:", req.headers.origin);
+    next();
+});
+
 // Parsea a JSON las solicitudes
 app.use(bodyParser.json()) 
 
@@ -51,14 +64,6 @@ app.use(cors({
 app.options('*', cors()); */
 
 // Permitir solicitudes desde tu frontend en Vercel
-app.use(
-  cors({
-    origin: "*",
-    methods: "GET,POST,PUT,DELETE",
-    allowedHeaders: "Content-Type,Authorization",
-    credentials: true,
-  })
-);
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "https://chesskingdom.vercel.app");
