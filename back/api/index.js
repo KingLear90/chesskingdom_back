@@ -11,27 +11,29 @@ import cors from 'cors'
 
 const app = express()
 
-app.use(express.json())
-
 const allowedOrigins = [
     "https://chesskingdom.vercel.app",
-    "http://localhost:5173"
+    "http://localhost:5173",
 ];
-
-app.use((req, res, next) => {
-    const origin = req.headers.origin;
-    if (allowedOrigins.includes(origin)) {
-        res.setHeader("Access-Control-Allow-Origin", origin);
+  
+const corsOptions = {
+    origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, origin);
+    } else {
+        callback(new Error("Not allowed by CORS"));
     }
-    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
-    res.setHeader("Access-Control-Allow-Credentials", "true");
+    },
+    methods: "GET,POST,PUT,DELETE,OPTIONS",
+    allowedHeaders: "Content-Type,Authorization",
+    credentials: true,
+};
+  
+app.use(cors(corsOptions));
 
-    if (req.method === "OPTIONS") {
-        return res.sendStatus(200);
-    }
-    next();
-});
+app.options("*", cors(corsOptions));
+
+app.use(express.json())
 
 // Parsea a JSON las solicitudes
 app.use(bodyParser.json()) 
@@ -50,19 +52,6 @@ app.use(
         saveUninitialized: false, // Evita que se guarde una sesión sin datos
     })
 )
-
-app.options('*', cors()); 
-
-// Permitir solicitudes desde tu frontend en Vercel
-
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "https://chesskingdom.vercel.app");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    console.log("CORS headers set");
-    next();
-});
 
 //Conexión a la base de datos
 connectDB();
