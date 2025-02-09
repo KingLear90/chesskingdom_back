@@ -13,10 +13,10 @@ const app = express()
 
 app.use(express.json())
 
-const allowedOrigins = process.env.NODE_ENV === "development" 
-? ["http://localhost:5173"]
-: ["https://chesskingdom.vercel.app"];
-    
+const allowedOrigins = [
+    "https://chesskingdom.vercel.app",
+    "http://localhost:5173"
+];
 
 app.use(cors({
     origin: allowedOrigins,
