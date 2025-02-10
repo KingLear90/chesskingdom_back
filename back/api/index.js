@@ -1,10 +1,11 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import { PORT } from '../src/config.js'
-import { connectDB } from '../src/database.js'
+import { connect_secondary_DB, connectDB } from '../src/database.js'
 import userRoute from '../src/routes/userRoute.js'
 import categoryRoute from '../src/routes/categoryRoute.js'
 import productRoute from '../src/routes/productRoute.js'
+import problemRoute from '../src/routes/problemRoute.js'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import cors from 'cors'
@@ -55,6 +56,7 @@ app.use(
 
 //Conexión a la base de datos
 connectDB();
+connect_secondary_DB(); 
 
 // Rutas
 // http://localhost:3001/api/user/get
@@ -63,6 +65,7 @@ connectDB();
 app.use("/api/user", userRoute);
 app.use("/api/product", productRoute);
 app.use("/api/category", categoryRoute);
+app.use("/chess/random-problem", problemRoute);
 
 process.on("uncaughtException", (err) => {
     console.error("Uncaught Exception:", err);
