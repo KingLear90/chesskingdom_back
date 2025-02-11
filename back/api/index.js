@@ -1,7 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import { PORT } from '../src/config.js'
-import { connect_secondary_DB, connectDB } from '../src/database.js'
+import { connectDB } from '../src/database.js'
 import userRoute from '../src/routes/userRoute.js'
 import categoryRoute from '../src/routes/categoryRoute.js'
 import productRoute from '../src/routes/productRoute.js'
