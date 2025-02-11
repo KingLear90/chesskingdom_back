@@ -56,7 +56,6 @@ app.use(
 
 //Conexión a la base de datos
 connectDB();
-connect_secondary_DB(); 
 
 // Rutas
 // http://localhost:3001/api/user/get

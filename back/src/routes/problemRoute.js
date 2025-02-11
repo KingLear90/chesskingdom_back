@@ -3,6 +3,6 @@ import { getRandomProblem } from "../controllers/problemController.js";
 
 const problemRoute = Router();
 
-problemRoute.get("/get", (getRandomProblem));
+problemRoute.get("/get", getRandomProblem);
 
 export default problemRoute;
