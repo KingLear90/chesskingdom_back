@@ -65,7 +65,7 @@ connect_secondary_DB();
 app.use("/api/user", userRoute);
 app.use("/api/product", productRoute);
 app.use("/api/category", categoryRoute);
-app.use("/chess", problemRoute);
+app.use("/api/problem", problemRoute);
 
 process.on("uncaughtException", (err) => {
     console.error("Uncaught Exception:", err);
