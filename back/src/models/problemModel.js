@@ -1,19 +1,22 @@
 import mongoose from "mongoose";
 
 const ProblemSchema = new mongoose.Schema({
-    FEN: {
+    fen: {
         type: String,
         required: true,
         trim: true,
         unique: true,
     },
-    Moves: {
+    solution: {
         type: Array,
         required: true,
     },
-    Themes: {
+    side: {
         type: String,
-
+        required: true,
+    },
+    description: {
+        type: String,
     }
 })
 

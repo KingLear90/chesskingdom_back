@@ -4,7 +4,7 @@ import { MONGODB_URI, MONGODB_URI_SECONDARY } from './config.js' // Llamado a la
 // Se exporta la función asíncrona connectDB:
 export const connectDB = async () => { 
     try {
-        mongoose.createConnection(MONGODB_URI, {dbName: 'chessDB'});
+        await mongoose.connect(MONGODB_URI, {dbName: 'chessDB'});
         console.log('Main database connected');
         } catch (error) {
         console.error("Error connecting to database", error);
@@ -15,9 +15,10 @@ export const connectDB = async () => {
 
 export const connect_secondary_DB = async () => { 
     try {
-        mongoose.createConnection(MONGODB_URI_SECONDARY, {dbName: 'chess_problems'});
+        const secondaryConnection = mongoose.createConnection(MONGODB_URI_SECONDARY, {dbName: 'chess_problems'});
         console.log('Chess_problems database connected');
-        } catch (error) {
+        return secondaryConnection;
+    } catch (error) {
         console.error("Error connecting to database", error);
         //Si falla, sale de la ejecucion
         process.exit(1);
