@@ -64,7 +64,7 @@ connectDB();
 app.use("/api/user", userRoute);
 app.use("/api/product", productRoute);
 app.use("/api/category", categoryRoute);
-app.use("/api/problem", problemRoute);
+app.use("/chess/problem", problemRoute);
 
 process.on("uncaughtException", (err) => {
     console.error("Uncaught Exception:", err);
