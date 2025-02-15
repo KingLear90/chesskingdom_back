@@ -20,6 +20,9 @@ const ProblemSchema = new mongoose.Schema({
     },
     category: {
         type: String,
+    },
+    author: {
+        type: String,
     }
 })
 
