@@ -21,6 +21,9 @@ const ProblemSchema = new mongoose.Schema({
     category: {
         type: String,
     },
+    difficulty: {
+        type: Number,
+    },
     author: {
         type: String,
     }
